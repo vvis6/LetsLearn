@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kummi's Mood Fixer Dashboard ❤️</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(-45deg, #ff9a9e 0%, #fecfef 50%, #feada6 100%);
+      --text-dark: #3a2222;
+      --card-bg: rgba(255, 255, 255, 0.85);
+      --card-border: rgba(255, 255, 255, 0.6);
+      --accent-rose: #ff6584;
+      --btn-gradient: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%);
+      --raj-gradient: linear-gradient(135deg, #ff9933 0%, #ffffff 50%, #138808 100%);
+      --font-main: 'Poppins', sans-serif;
+      --font-romantic: 'Great Vibes', cursive;
+    }
+
+    body {
+      font-family: var(--font-main);
+      margin: 0;
+      padding: 50px 20px;
+      background: var(--bg-gradient);
+      background-size: 300% 300%;
+      animation: ambientBg 12s ease infinite;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-sizing: border-box;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    @keyframes ambientBg {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .bg-particles {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .particle-heart {
+      position: absolute;
+      color: rgba(255, 255, 255, 0.55);
+      font-size: 24px;
+      animation: floatUp 15s linear infinite;
+      opacity: 0;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(105vh) scale(0.5) rotate(0deg); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateY(-10vh) scale(1.2) rotate(360deg); opacity: 0; }
+    }
+
+    h1 {
+      font-family: var(--font-romantic);
+      color: var(--text-dark);
+      font-size: 4rem;
+      margin: 0 0 5px 0;
+      text-align: center;
+      text-shadow: 2px 4px 10px rgba(0, 0, 0, 0.05);
+      font-weight: normal;
+      z-index: 2;
+    }
+
+    #welcome-banner {
+      background: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      color: #723d46;
+      padding: 12px 40px;
+      border-radius: 30px;
+      margin-bottom: 45px;
+      font-size: 1.1rem;
+      font-weight: 500;
+      box-shadow: 0 8px 32px 0 rgba(255, 101, 132, 0.1);
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      z-index: 2;
+      letter-spacing: 0.5px;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      width: 100%;
+      max-width: 1200px;
+      padding: 0 10px;
+      z-index: 2;
+    }
+
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 35px 25px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.06);
+      transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease;
+      box-sizing: border-box;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 50px 0 rgba(255, 101, 132, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+    }
+
+    .card h2 {
+      color: var(--text-dark);
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin: 15px 0 10px 0;
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    .card-icon-img {
+      width: 65px;
+      height: 65px;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 8px rgba(255,101,132,0.2));
+    }
+
+    .card-content {
+      width: 100%;
+      flex: 1;
+      margin: 20px 0;
+      text-align: center;
+      color: var(--text-dark);
+      font-size: 0.95rem;
+    }
+
+    .card button.action-btn {
+      background: var(--btn-gradient);
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 600;
+      width: 100%;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 20px rgba(255, 117, 140, 0.4);
+    }
+
+    .card button.action-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(255, 117, 140, 0.6);
+      opacity: 0.95;
+    }
+
+    #compliment-box {
+      border: 1px solid rgba(255,255,255,0.8);
+      background: rgba(255, 255, 255, 0.6);
+      padding: 18px;
+      border-radius: 16px;
+      min-height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 400;
+      line-height: 1.6;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+    }
+
+    #critter-box {
+      background: linear-gradient(to bottom, rgba(255,255,255,0.6), rgba(254,207,239,0.3));
+      border: 1px solid rgba(255,255,255,0.7);
+      border-radius: 16px;
+      width: 100%;
+      height: 200px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.02);
+    }
+
+    #critter-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    #critter-placeholder {
+      padding: 20px;
+      color: #9e6470;
+      font-weight: 500;
+    }
+
+    .btn-container {
+      position: relative;
+      width: 170px;
+      height: 170px;
+      margin: 15px 0;
+    }
+
+    #forgiveness-button {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: none;
+      background: radial-gradient(circle at 30% 30%, #ff5e62, #ff2a4b, #b3001e);
+      box-shadow: 0 14px 0 #800014, 0 20px 30px rgba(0,0,0,0.25);
+      color: white;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 25px;
+      box-sizing: border-box;
+      transition: all 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    #forgiveness-button:active {
+      transform: translateY(10px);
+      box-shadow: 0 4px 0 #800014, 0 10px 15px rgba(0,0,0,0.2);
+    }
+
+    #forgiveness-button span {
+      font-size: 2rem;
+      margin-bottom: 5px;
+      animation: heartBeat 1.5s infinite;
+    }
+
+    @keyframes heartBeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+    }
+
+    .memory-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 15px;
+    }
+
+    .polaroid {
+      background: white;
+      padding: 8px 8px 20px 8px;
+      border: 1px solid rgba(0,0,0,0.04);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.06);
+      transform: rotate(var(--rot));
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      cursor: pointer;
+    }
+
+    .polaroid:hover {
+      transform: scale(1.25) rotate(0deg) translateY(-5px);
+      box-shadow: 0 15px 30px rgba(255,101,132,0.25);
+      z-index: 10;
+    }
+
+    .polaroid img {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      display: block;
+      background-color: #f7eded;
+      border-radius: 4px;
+    }
+
+    .button-footer-text {
+      font-size: 0.85rem; 
+      color: #6e4e53; 
+      margin-top: 15px;
+      font-weight: 500;
+    }
+
+    /* Rajasthan Specific Styling Boxes */
+    .raj-box {
+      border: 1px solid rgba(255, 153, 51, 0.3);
+      background: linear-gradient(to right, rgba(255, 244, 229, 0.8), rgba(235, 247, 235, 0.8));
+      padding: 15px;
+      border-radius: 16px;
+      margin-bottom: 15px;
+      text-align: left;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+    }
+    
+    .raj-box h3 {
+      margin: 0 0 5px 0;
+      font-size: 1.05rem;
+      color: #b55d00;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .raj-box p {
+      margin: 0;
+      font-size: 0.85rem;
+      color: #443;
+      line-height: 1.4;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-particles" id="bgParticlesContainer"></div>
+
+  <h1>Kummi's Mood Fixer Dashboard</h1>
+  <div id="welcome-banner">Welcome, Kummi! Bad day? We got this.</div>
+
+  <div class="dashboard">
+    
+    <!-- CARD 1: COMPLIMENT GENERATOR -->
+    <div class="card">
+      <img class="card-icon-img" src="https://cdn-icons-png.flaticon.com/128/3656/3656870.png" alt="📢">
+      <h2>Instant Compliment Generator</h2>
+      <div class="card-content">
+        <p style="margin-top:0; color:#846267; font-weight:500;">Your custom daily validation:</p>
+        <div id="compliment-box">Your smile is more contagious than a laugh, Kummi! It lights up my whole world. ✨</div>
+      </div>
+      <button class="action-btn" onclick="generateCompliment()">Generate Another Sparkly Compliment!</button>
+    </div>
+
+    <!-- NEW CARD: RAJASTHANI HERITAGE SPECIAL -->
+    <div class="card" style="border: 1px solid rgba(255, 153, 51, 0.4);">
+      <img class="card-icon-img" src="https://cdn-icons-png.flaticon.com/128/5323/5323485.png" alt="👑">
+      <h2>Mharo Rajasthan Corner 🌸</h2>
+      <div class="card-content" style="margin: 10px 0;">
+        <p style="font-family: var(--font-romantic); font-size: 2.2rem; color: #cc6600; margin: 0 0 10px 0; text-align: center;">Khamma Ghani, Banno Sa!</p>
+        
+        <div class="raj-box">
+          <h3>🎵 Ghoomar Mood Booster</h3>
+          <p>Click below to play rhythmic folk beats guaranteed to make your heart dance away all your worries.</p>
+        </div>
+
+        <div class="raj-box" style="border-color: rgba(19, 136, 8, 0.3);">
+          <h3>🥞 Sweet Forgiveness Voucher</h3>
+          <p>Good for 1 prompt serving of hot, royal Mawa Ghewar or Kulfi to instantly sweeten your mood!</p>
+        </div>
+      </div>
+      <button class="action-btn" style="background: linear-gradient(135deg, #ff9933 0%, #ff5500 100%); box-shadow: 0 6px 20px rgba(255, 153, 51, 0.4);" onclick="triggerRajMusic()">Play Royal Folk Vibe!</button>
+    </div>
+
+    <!-- CARD 2: SPAWN CUTE ANIMALS -->
+    <div class="card">
+      <img class="card-icon-img" src="https://cdn-icons-png.flaticon.com/128/616/616408.png" alt="🐾">
+      <h2>Spawn Cute Animals</h2>
+      <div class="card-content">
+        <div id="critter-box">
+          <div id="critter-placeholder">💌 Click below to unlock cuteness overload!</div>
+        </div>
+      </div>
+      <button class="action-btn" onclick="spawnCritter()">Spawn an Adorable Critter!</button>
+    </div>
+
+    <!-- CARD 3: EMERGENCY RESET BUTTON -->
+    <div class="card">
+      <img class="card-icon-img" src="https://cdn-icons-png.flaticon.com/128/833/833472.png" alt="❤️">
+      <h2>Emergency Reset Button</h2>
+      <div class="card-content" style="display:flex; flex-direction:column; align-items:center; margin-bottom: 0;">
+        <div class="btn-container">
+          <button id="forgiveness-button" onclick="triggerForgiveness()">
+            <span>❤️</span>
+            PUSH FOR DIRECT HUGS
+          </button>
+        </div>
+        <p class="button-footer-text">⭐ 100% Success Rate at Restoring Smiles</p>
+      </div>
+    </div>
+
+    <!-- CARD 4: OUR MEMORY REEL -->
+    <div class="card">
+      <img class="card-icon-img" src="https://cdn-icons-png.flaticon.com/128/1160/1160358.png" alt="📸">
+      <h2>Our Memory Reel</h2>
+      <div class="card-content">
+        <p style="margin-top:0; color:#846267; font-weight:500;">Hover over any snapshot to look closer!</p>
+        
+        <div class="memory-grid">
+          <div class="polaroid" style="--rot: -5deg;">
+            <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=200&q=80" alt="Memory 1">
+          </div>
+          <div class="polaroid" style="--rot: 4deg;">
+            <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=200&q=80" alt="Memory 2">
+          </div>
+          <div class="polaroid" style="--rot: -2deg;">
+            <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=200&q=80" alt="Memory 3">
+          </div>
+          <div class="polaroid" style="--rot: 6deg;">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=80" alt="Memory 4">
+          </div>
+          <div class="polaroid" style="--rot: -4deg;">
+            <img src="https://images.unsplash.com/photo-1475669698590-77d0ae37c289?w=200&q=80" alt="Memory 5">
+          </div>
+          <div class="polaroid" style="--rot: 3deg;">
+            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=200&q=80" alt="Memory 6">
+          </div>
+        </div>
+      </div>
+      <button class="action-btn" onclick="window.location.href='#'">View Our Full Memory Lane!</button>
+    </div>
+
+  </div>
+
+  <script>
+    const compliments = [
+      "Your smile is more contagious than a laugh, Kummi! It lights up my whole world. ✨",
+      "You look absolutely stunning even when you're giving me that adorable angry face. 😍",
+      "Are you a magician? Because whenever I look at you, everyone else disappears. 💖",
+      "My day doesn't officially start until I hear from you, beautiful. 😘",
+      "You have the most brilliant mind and the softest heart, Kummi. I'm so lucky to have you.",
+      "System Alert: Kummi is recognized as the prettiest girl in the universe. 🌎❤️",
+      "Everything is better when you're near. You make ordinary days feel extraordinary. 🌸"
+    ];
+
+    function generateCompliment() {
+      const box = document.getElementById("compliment-box");
+      const currentText = box.innerText;
+      let randomCompliment = currentText;
+      
+      while (randomCompliment === currentText) {
+        randomCompliment = compliments[Math.floor(Math.random() * compliments.length)];
+      }
+      box.innerText = randomCompliment;
+    }
+
+    const critterImages = [
+      "https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=400&q=80", 
+      "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=400&q=80", 
+      "https://images.unsplash.com/photo-1507146426996-ef05306b995a?w=400&q=80", 
+      "https://images.unsplash.com/photo-1533738363-b7f9aef128ce?w=400&q=80",
+      "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=400&q=80"
+    ];
+
+    function spawnCritter() {
+      const box = document.getElementById("critter-box");
+      const randomImg = critterImages[Math.floor(Math.random() * critterImages.length)];
+      box.innerHTML = `<img src="${randomImg}" alt="Cute Animal">`;
+    }
+
+    function triggerForgiveness() {
+      alert("🚨 Angermeter dropping drastically... 📉\n\nSystem reset complete! You've officially been wrapped in an infinite digital hug. Give me a smile now! 🥰❤️");
+    }
+
+    function triggerRajMusic() {
+      alert("👑 Padharo Mhare Des! 👑\n\nPlaying virtual folk melodies! Sending you royal desert vibes, fresh winds from Jaipur, and an extra sweet virtual plate of Ghewar. Smile now, my beautiful Queen! 🧡👑");
+    }
+
+    const bgContainer = document.getElementById('bgParticlesContainer');
+    const heartTypes = ['❤️', '💖', '💗', '✨', '💕'];
+    for (let i = 0; i < 30; i++) {
+      const heart = document.createElement('div');
+      heart.classList.add('particle-heart');
+      heart.innerHTML = heartTypes[Math.floor(Math.random() * heartTypes.length)];
+      heart.style.left = `${Math.random() * 100}vw`;
+      heart.style.animationDelay = `${Math.random() * 12}s`;
+      heart.style.fontSize = `${Math.random() * 16 + 12}px`;
+      bgContainer.appendChild(heart);
+    }
+  </script>
+</body>
+</html>
