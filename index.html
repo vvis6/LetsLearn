@@ -81,7 +81,7 @@
       color: #723d46;
       padding: 12px 40px;
       border-radius: 30px;
-      margin-bottom: 45px;
+      margin-bottom: 30px;
       font-size: 1.1rem;
       font-weight: 500;
       box-shadow: 0 8px 32px 0 rgba(255, 101, 132, 0.1);
@@ -89,6 +89,38 @@
       border: 1px solid rgba(255, 255, 255, 0.5);
       z-index: 2;
       letter-spacing: 0.5px;
+    }
+
+    /* Royal Spotlight Frame for her picture */
+    .spotlight-frame {
+      background: rgba(255, 255, 255, 0.7);
+      border: 3px solid #ff9933;
+      padding: 15px;
+      border-radius: 24px;
+      box-shadow: 0 10px 30px rgba(255, 101, 132, 0.2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 45px;
+      max-width: 340px;
+      width: 100%;
+      z-index: 2;
+      box-sizing: border-box;
+      text-align: center;
+    }
+
+    .spotlight-frame img {
+      width: 100%;
+      border-radius: 16px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      border: 2px solid white;
+    }
+
+    .spotlight-frame p {
+      margin: 10px 0 0 0;
+      font-family: var(--font-romantic);
+      font-size: 2rem;
+      color: #cc6600;
     }
 
     .dashboard {
@@ -298,7 +330,6 @@
       font-weight: 500;
     }
 
-    /* Rajasthan Specific Styling Boxes */
     .raj-box {
       border: 1px solid rgba(255, 153, 51, 0.3);
       background: linear-gradient(to right, rgba(255, 244, 229, 0.8), rgba(235, 247, 235, 0.8));
@@ -333,6 +364,12 @@
   <h1>Kummi's Mood Fixer Dashboard</h1>
   <div id="welcome-banner">Welcome, Kummi! Bad day? We got this.</div>
 
+  <!-- ROYAL SPOTLIGHT FRAME SHOWING HER IMAGE -->
+  <div class="spotlight-frame">
+    <img src="kummi-pic.png" alt="Mhari Pyari Banno Kummi">
+    <p>Mhari Pyari Banno Sa ✨</p>
+  </div>
+
   <div class="dashboard">
     
     <!-- CARD 1: COMPLIMENT GENERATOR -->
@@ -346,7 +383,7 @@
       <button class="action-btn" onclick="generateCompliment()">Generate Another Sparkly Compliment!</button>
     </div>
 
-    <!-- NEW CARD: RAJASTHANI HERITAGE SPECIAL -->
+    <!-- CARD: RAJASTHANI HERITAGE SPECIAL -->
     <div class="card" style="border: 1px solid rgba(255, 153, 51, 0.4);">
       <img class="card-icon-img" src="https://cdn-icons-png.flaticon.com/128/5323/5323485.png" alt="👑">
       <h2>Mharo Rajasthan Corner 🌸</h2>
@@ -401,8 +438,9 @@
         <p style="margin-top:0; color:#846267; font-weight:500;">Hover over any snapshot to look closer!</p>
         
         <div class="memory-grid">
+          <!-- Spotlight Polaroid uses her picture file -->
           <div class="polaroid" style="--rot: -5deg;">
-            <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=200&q=80" alt="Memory 1">
+            <img src="kummi-pic.png" alt="Kummi Memory">
           </div>
           <div class="polaroid" style="--rot: 4deg;">
             <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=200&q=80" alt="Memory 2">
